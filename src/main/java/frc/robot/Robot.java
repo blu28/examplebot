@@ -36,18 +36,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-
-    // Print the Splash Screen
-    System.out.println("==============================================");
-    System.out.println("Starting robotInit for Tough Techs");
-    printStatusFiles("deployhost.txt", true, 0, 2, 1);
-    printStatusFiles("deploytime.txt", true, 0, 3, 2);
-    printStatusFiles("buildtime.txt", false, 0, 0, 2);
-    printStatusFiles("branch.txt", false, 0, 5, 1);
-    printStatusFiles("commit.txt", false, 1, 0, 10);
-    printStatusFiles("changes.txt", false, 2, 0, 10);
-    printStatusFiles("remote.txt", false, 3, 0, 10);
-    System.out.println("============================================");
+    printAllStatusFiles();
 
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
@@ -132,7 +121,7 @@ public class Robot extends TimedRobot {
   public void testPeriodic() {
   }
 
-  private void printStatusFiles(String filename, Boolean isDeploy, int rowIndex, int colIndex, int widthIndex) {
+  private void printStatusFile(String filename, Boolean isDeploy, int rowIndex, int colIndex, int widthIndex) {
     byte[] buffer = new byte[1024];
     InputStream statusfile;
     try {
@@ -164,5 +153,19 @@ public class Robot extends TimedRobot {
       System.out.println("Unable to find file.");
       System.out.println(e.getMessage());
     }
+  }
+
+  private void printAllStatusFiles() {
+    // Print the Splash Screen
+    System.out.println("==============================================");
+    System.out.println("Starting robotInit for Tough Techs");
+    printStatusFile("deployhost.txt", true, 0, 2, 1);
+    printStatusFile("deploytime.txt", true, 0, 3, 2);
+    printStatusFile("buildtime.txt", false, 0, 0, 2);
+    printStatusFile("branch.txt", false, 0, 5, 1);
+    printStatusFile("commit.txt", false, 1, 0, 10);
+    printStatusFile("changes.txt", false, 2, 0, 10);
+    printStatusFile("remote.txt", false, 3, 0, 10);
+    System.out.println("============================================");
   }
 }
