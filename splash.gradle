@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat
 def getGitHash = { ->
     def stdout = new ByteArrayOutputStream()
     exec {
-        commandLine "ggit", "log", "-n", "1", "--oneline", "--decorate", "HEAD"
+        commandLine "git", "log", "-n", "1", "--oneline", "--decorate", "HEAD"
         standardOutput = stdout
     }
     return stdout.toString().trim()
@@ -14,7 +14,7 @@ def getGitHash = { ->
 def getGitBranch = { ->
     def stdout = new ByteArrayOutputStream()
     exec {
-        commandLine "ggit", "rev-parse", "--abbrev-ref", "HEAD"
+        commandLine "git", "rev-parse", "--abbrev-ref", "HEAD"
         standardOutput = stdout
     }
     return stdout.toString().trim()
@@ -23,7 +23,7 @@ def getGitBranch = { ->
 def getGitFilesChanged = { ->
     def stdout = new ByteArrayOutputStream()
     exec {
-        commandLine "ggit", "diff", "--name-only", "HEAD"
+        commandLine "git", "diff", "--name-only", "HEAD"
         standardOutput = stdout
     }
     return stdout.toString().trim().replace("\n", ", ").replace("src/main/java/frc/robot/", "")
@@ -32,7 +32,7 @@ def getGitFilesChanged = { ->
 def getGitRemote = { ->
     def stdout = new ByteArrayOutputStream()
     exec {
-        commandLine "ggit", "remote", "--verbose"
+        commandLine "git", "remote", "--verbose"
         standardOutput = stdout
     }
     return stdout.toString().trim().replace("\n", ", ").replace("src/main/java/frc/robot/", "")
@@ -59,9 +59,14 @@ task versionTxt()  {
 }
 
 task deployHost() {
+    String deployDir = "$projectDir/src/main/deploy"
+
+    doFirst {
+        new File("$deployDir/deployhost.txt").text = "Empty"
+        new File("$deployDir/deploytime.txt").text = "Empty"
+    }
     doLast {
         String deploy_host = ""
-        String deployDir = "$projectDir/src/main/deploy"
         try {
             deploy_host = java.net.InetAddress.getLocalHost().getHostName()
         } catch (all) {
