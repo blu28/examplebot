@@ -88,3 +88,11 @@ build.dependsOn versionTxt
 tasks.getByName('versionTxt').dependsOn(ensureResources)
 tasks.getByName('deploy').dependsOn(deployHost)
 tasks.getByName('simulateExternalJava').dependsOn(deployHost)
+dependencies {
+    implementation 'com.github.Oblarg.Oblog:lib:3.1.0'
+}
+repositories {
+    maven {
+        url 'https://jitpack.io'
+    }
+}
