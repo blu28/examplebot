@@ -88,8 +88,11 @@ build.dependsOn versionTxt
 tasks.getByName('versionTxt').dependsOn(ensureResources)
 tasks.getByName('deploy').dependsOn(deployHost)
 tasks.getByName('simulateExternalJava').dependsOn(deployHost)
+
+// Remove the next two sections if you don't want Oblog and the halsim_ds_socket plugin.
 dependencies {
     implementation 'com.github.Oblarg.Oblog:lib:3.1.0'
+    simulation "edu.wpi.first.halsim:halsim_ds_socket:${wpi.wpilibVersion}:${wpi.platforms.desktop}@zip"
 }
 repositories {
     maven {
