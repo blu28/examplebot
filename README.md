@@ -12,36 +12,50 @@ To use this feature all you have to do is add the file "splash.gradle" to the pr
 file "Splash.java" to the java/frc/robot directory. Once that is done add this line to the existing
 build.gradle file after the "plugins" section:
 
+```
 apply from: "splash.gradle"
+```
 
 Add these three lines to the bottom of the .gitignore file:
 
+```
 # Add ignore for deploy and resources
 src/main/deploy/deploy*.txt
 src/main/resources/*.txt
+```
 
 And this line at the top of the Robot.java file:
 
+```
 import frc.robot.Splash;
+```
 
 And this line to the robotInit() method in the Robot.java file:
 
+```
 Splash.printAllStatusFiles();
+```
     
-And this line to the robotPeriodic() method in the Robot.java file:
-
-Logger.updateEntries();
-
 In addition, the splash.gradle file includes code to load the Oblarg.Oblog logging method and the halsim_ds_socket
 plugin for the desktop simulator so it can use the regular drive station in testing. The halsim plugin doesn't hurt 
 anything if you leave it in and don't use it (except to have it appear as an option when you run the simulator), 
 but to use the Oblarg.Oblog feature you also need to add this line to the top of the RobotContainer.java file:
 
+```
 import io.github.oblarg.oblog.Logger;
+```
 
 and this line to the RobotContainer() method in the same file:
 
+```
 Logger.configureLoggingAndConfig(this, false);
+```
+
+And this line to the robotPeriodic() method in the Robot.java file:
+
+```
+Logger.updateEntries();
+```
 
 Further information on using the Oblog feature can be found at https://oblog-docs.readthedocs.io/en/latest/
 
