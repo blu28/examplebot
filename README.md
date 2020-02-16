@@ -26,7 +26,7 @@ import frc.robot.Splash;
 
 And this line to the robotInit() method in the Robot.java file:
 
-    Splash.printAllStatusFiles();
+Splash.printAllStatusFiles();
     
 And this line to the robotPeriodic() method in the Robot.java file:
 
