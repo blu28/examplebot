@@ -14,6 +14,12 @@ build.gradle file after the "plugins" section:
 
 apply from: "splash.gradle"
 
+Add these three lines to the bottom of the .gitignore file:
+
+# Add ignore for deploy and resources
+src/main/deploy/deploy*.txt
+src/main/resources/*.txt
+
 And this line at the top of the Robot.java file:
 
 import frc.robot.Splash;
@@ -21,6 +27,10 @@ import frc.robot.Splash;
 And this line to the robotInit() method in the Robot.java file:
 
     Splash.printAllStatusFiles();
+    
+And this line to the robotPeriodic() method in the Robot.java file:
+
+Logger.updateEntries();
 
 In addition, the splash.gradle file includes code to load the Oblarg.Oblog logging method and the halsim_ds_socket
 plugin for the desktop simulator so it can use the regular drive station in testing. The halsim plugin doesn't hurt 
