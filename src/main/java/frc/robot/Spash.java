@@ -4,14 +4,22 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.BufferedInputStream;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
 
+
  class Splash {
+
      public static boolean printAllStatusFiles() {
-                // Print the Splash Screen
-        System.out.println("==============================================");
+
+        // Print the Splash Screen
+        System.out.println("====================================================================");
+        System.out.println("====================================================================");
+        System.out.println("====================================================================");
+        System.out.println("====================================================================");
         System.out.println("Starting robotInit for Tough Techs");
         printStatusFile("deployhost.txt", true, 0, 2, 1);
         printStatusFile("deploytime.txt", true, 0, 3, 2);
@@ -20,7 +28,8 @@ import edu.wpi.first.wpilibj.RobotBase;
         printStatusFile("commit.txt", false, 1, 0, 10);
         printStatusFile("changes.txt", false, 2, 0, 10);
         printStatusFile("remote.txt", false, 3, 0, 10);
-        System.out.println("============================================");
+        System.out.println("====================================================================");
+
         return true;
      }
 
@@ -28,6 +37,8 @@ import edu.wpi.first.wpilibj.RobotBase;
     private static void printStatusFile(String filename, Boolean isDeploy, int rowIndex, int colIndex, int widthIndex) {
         byte[] buffer = new byte[1024];
         InputStream statusfile;
+        ShuffleboardTab tab;
+        NetworkTableEntry field;
         try {
           if (isDeploy) {
             if (RobotBase.isSimulation()) {
@@ -40,6 +51,7 @@ import edu.wpi.first.wpilibj.RobotBase;
             statusfile = Main.class.getResourceAsStream("/" + filename);
           }
           System.out.print((filename + ": ").replace(".txt", ""));
+
           try {
             for (int length = 0; (length = statusfile.read(buffer)) != -1;) {
               String buf = new String(buffer).replaceAll("\\s"," ");
@@ -47,7 +59,9 @@ import edu.wpi.first.wpilibj.RobotBase;
               String fn = tfn.substring(0,1).toUpperCase() + tfn.substring(1);
               System.out.write(buffer, 0, length);
               SmartDashboard.putString(fn, buf);
-              Shuffleboard.getTab("Status").add(fn, buf).withPosition(colIndex, rowIndex).withSize(widthIndex, 1);
+              tab = Shuffleboard.getTab("Status");
+              field = tab.add(fn, buf).withPosition(colIndex, rowIndex).withSize(widthIndex, 1).getEntry();
+              field.setString(buf);
             }
           } finally {
             System.out.println();
