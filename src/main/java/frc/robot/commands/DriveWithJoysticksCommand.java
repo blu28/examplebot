@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class DriveWithJoysticksCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final DriveSubsystem m_subsystem;
+  private final DriveSubsystem m_drivesubsystem;
 
   /**
    * Creates a new DriveCommand.
@@ -23,7 +23,7 @@ public class DriveWithJoysticksCommand extends CommandBase {
    * @param subsystem The subsystem used by this command.
    */
   public DriveWithJoysticksCommand(DriveSubsystem subsystem) {
-    m_subsystem = subsystem;
+    m_drivesubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
