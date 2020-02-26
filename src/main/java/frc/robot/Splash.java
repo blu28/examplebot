@@ -60,7 +60,7 @@ import edu.wpi.first.wpilibj.RobotBase;
               System.out.write(buffer, 0, length);
               SmartDashboard.putString(fn, buf);
               tab = Shuffleboard.getTab("Status");
-              field = tab.add(fn, buf).withPosition(colIndex, rowIndex).withSize(widthIndex, 1).getEntry();
+              field = tab.add(fn, "").withPosition(colIndex, rowIndex).withSize(widthIndex, 1).getEntry();
               field.setString(buf);
             }
           } finally {
